@@ -23,7 +23,7 @@ function registerUser(input) {
         endIndex >= 0 &&
         startIndex < username.length &&
         endIndex < username.length) {
-          
+
         let toBeReversed = username.substring(startIndex, endIndex);
         toBeReversed = toBeReversed.split('').reverse().join('');
         console.log(toBeReversed);
@@ -54,7 +54,7 @@ function registerUser(input) {
       let char = command[1];
 
       if (username.includes(char)) {
-        console.log('Valid username');
+        console.log('Valid username.');
       } else {
         console.log(`${char} must be contained in your username.`);
       }
