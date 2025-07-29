@@ -50,7 +50,7 @@ function solve(input) {
 
   let numberOfCities = Object.keys(cities).length;
 
-  if (numberOfCities < 0) {
+  if (numberOfCities <= 0) {
     console.log('Ahoy, Captain! All targets have been plundered and destroyed!');
   } else {
     console.log(`Ahoy, Captain! There are ${numberOfCities} wealthy settlements to go to:`);
