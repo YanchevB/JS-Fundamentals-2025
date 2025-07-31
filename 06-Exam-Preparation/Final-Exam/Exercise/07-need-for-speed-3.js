@@ -1,5 +1,5 @@
 function solve(input) {
-  let numberOfCars = input.shift();
+  let numberOfCars = Number(input.shift());
   let carsArr = input.splice(0, numberOfCars);
   let cars = {};
 
@@ -22,17 +22,44 @@ function solve(input) {
     
     switch (command) {
       case 'Drive':
-        
+        let distanceToDrive = Number(param1);
+        let fuelNeeded = Number(param2);
+
+        if (fuelNeeded <= cars[model].fuel) {
+          cars[model].mileage += distanceToDrive;
+          cars[model].fuel -= fuelNeeded;
+          console.log(`${model} driven for ${distanceToDrive} kilometers. ${fuelNeeded} liters of fuel consumed.`);
+          if (cars[model].mileage >= 100000) {
+            console.log(`Time to sell the ${model}!`);
+            delete cars[model];
+          }
+        } else {
+          console.log('Not enough fuel to make that ride'); 
+        }
         break;
     
       case 'Refuel':
-
+        let refuelAmount = Number(param1);
+        let currentFuel = cars[model].fuel;
+        let actualRefuel = Math.min(refuelAmount, 75 - currentFuel);
+        cars[model].fuel += actualRefuel;
+        console.log(`${model} refueled with ${actualRefuel} liters`);
         break;
       
       case 'Revert':
-
+        let kmToDecrease = Number(param1);
+        cars[model].mileage -= kmToDecrease;
+        if (cars[model].mileage < 10000) {
+          cars[model].mileage = 10000;
+        } else {
+          console.log(`${model} mileage decreased by ${kmToDecrease} kilometers`);
+        }
         break;
     }
+  }
+
+  for (let [car, stats] of Object.entries(cars)) {
+    console.log(`${car} -> Mileage: ${stats.mileage} kms, Fuel in the tank: ${stats.fuel} lt.`);
   }
 }
 
@@ -49,3 +76,17 @@ solve([
   'Revert : Audi A6 : 30000',
   'Stop'
 ])
+
+// solve([
+//   '4',
+//   'Lamborghini Veneno|11111|74',
+//   'Bugatti Veyron|12345|67',
+//   'Koenigsegg CCXR|67890|12',
+//   'Aston Martin Valkryie|99900|50',
+//   'Drive : Koenigsegg CCXR : 382 : 82',
+//   'Drive : Aston Martin Valkryie : 99 : 23',
+//   'Drive : Aston Martin Valkryie : 2 : 1',
+//   'Refuel : Lamborghini Veneno : 40',
+//   'Revert : Bugatti Veyron : 2000',
+//   'Stop'
+// ])
