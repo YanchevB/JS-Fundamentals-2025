@@ -3,17 +3,16 @@ function solve(input) {
   let wordsArr = input.shift();
   let regex = /\b_+\b/g;
 
-  let matches = letter.matchAll(regex);
-  for (let match of matches) {
-    let lengthToMatch = match[0].length;
-    
-    for (let word of wordsArr) {
-      if (word.length === lengthToMatch) {
-        letter = letter.replace(regex, word);
-      }
+  let replacedText = letter.replace(regex, (match) => {
+    let correctWord = wordsArr.find(w => match.length === w.length);
+    if (correctWord) {
+      wordsArr.splice(wordsArr.indexOf(correctWord), 1);
+      return correctWord;
+
     }
-  }
-  console.log(letter);
+    return match;
+  })
+  console.log(replacedText);
 }
 
 solve([
