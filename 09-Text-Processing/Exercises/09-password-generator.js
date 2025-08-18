@@ -14,9 +14,16 @@ function passwordGenerator(input) {
         i++
         break;
       }
-      current = i;
+
+      if (i === thirdString.length) {
+        current = 0;
+      } else {
+        current = i;
+      }
     }
   }
+  let password = concatenated.split('').reverse().join('')
+  console.log(`Your generated password is ${password}`);
 }
 
 passwordGenerator([
@@ -24,3 +31,9 @@ passwordGenerator([
   'ihatevegetables',
   'orange'
 ]);
+
+passwordGenerator([
+  'easymoneyeazylife', 
+  'atleasttencharacters', 
+  'absolute'
+])
