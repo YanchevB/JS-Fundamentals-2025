@@ -1,28 +1,19 @@
 function passwordGenerator(input) {
-  let firstString = input.shift();
-  let secondString = input.shift();
-  let thirdString = input.shift().toUpperCase();
-  
-  let concatenated = firstString.concat(secondString);
-  let vowelMatch = /[aeiou]/gi;
-  let current = 0;
-  for (let char of concatenated) {
-    if (char.match(vowelMatch)) {
-      for (i = current; i < thirdString.length; i++) {
-        let newCharr = thirdString[i];
-        concatenated = concatenated.replace(char, newCharr);
-        i++
-        break;
-      }
+  let [firstString, secondString, thirdString] = input;
+  thirdString = thirdString.toUpperCase();
 
-      if (i === thirdString.length) {
-        current = 0;
-      } else {
-        current = i;
-      }
+  let concatenated = firstString.concat(secondString);
+  let chars = concatenated.split('');
+  let vowelMatch = /[aeiou]/i;
+  
+  for (let i = 0, j = 0; i < chars.length; i++) {
+    if (vowelMatch.test(chars[i])) {
+      chars[i] = thirdString[j++];
+      if (j >= thirdString.length) j = 0;
     }
   }
-  let password = concatenated.split('').reverse().join('')
+
+  let password = chars.reverse().join('')
   console.log(`Your generated password is ${password}`);
 }
 
